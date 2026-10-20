@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h3>
+                {% if is_edit %}
+                    Edit Category
+                {% else %}
+                    Add Category
+                {% endif %}
+            </h3>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Category Name</label>
+                    {{ form.name }}
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Save
+                </button>
+
+                <a href="{% url 'categories' %}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

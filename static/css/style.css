@@ -1,0 +1,207 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
+
+body{
+    background:#f8fafc;
+}
+
+/* Layout */
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:250px;
+    background:#2563eb;
+    color:white;
+    padding:20px;
+}
+
+.logo{
+    margin-bottom:40px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar li{
+    margin:20px 0;
+}
+
+.sidebar a{
+    color:white;
+    text-decoration:none;
+}
+
+/* Main */
+
+.main-content{
+    flex:1;
+    padding:20px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.profile-pic{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+}
+
+/* Cards */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+/* Charts */
+
+.charts{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:30px;
+}
+
+.chart-box{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+/* Table */
+
+.table-section{
+    margin-top:30px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+/* Auth Pages */
+
+.auth-container{
+    display:flex;
+    min-height:100vh;
+}
+
+.auth-left{
+    flex:1;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.auth-right{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:50px;
+}
+
+.auth-right form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.auth-right input{
+    padding:12px;
+}
+
+.auth-right button{
+    padding:12px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+.messages-container {
+  margin-bottom: 20px;
+}
+
+/* Base alert styling */
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+  margin-bottom: 10px;
+
+  border-radius: 8px;
+}
+
+/* Success */
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* Error/Danger */
+.alert-error,
+.alert-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Warning */
+.alert-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Info */
+.alert-info {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Close button */
+.close-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+.close-btn:focus {
+  outline: none;
+}

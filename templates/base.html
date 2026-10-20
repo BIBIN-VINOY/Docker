@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    {% block extra_css %} {% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h2 class="logo">ExpenseTracker</h2>
+
+        <nav>
+          <ul>
+            <li><a href="{% url 'dashboard' %}">🏠 Dashboard</a></li>
+            <li><a href="{% url 'income' %}">💰 Income</a></li>
+            <li><a href="{% url 'expense' %}">💸 Expenses</a></li>
+            <li><a href="{% url 'categories' %}">📂 Categories</a></li>
+            <li><a href="{% url 'profile' %}">⚙ Profile</a></li>
+
+            {% if user.is_authenticated %}
+
+            <li><a href="{% url 'logout' %}">🚪 Logout</a></li>
+
+            {% else %}
+
+            <li>
+              <a href="{% url 'login' %}"> Login </a>
+            </li>
+
+            <li>
+              <a href="{% url 'signup' %}"> Signup </a>
+            </li>
+
+            {% endif %}
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Topbar -->
+        <header class="topbar">
+          <h2>{% block page_title %}{% endblock %}</h2>
+
+          <div class="profile-section">
+            <!--Change it when profile is set-->
+            {% if user.is_authenticated and user.profile.profile_img %}
+            <a href="{% url 'profile' %}"
+              ><img
+                src="{{ user.profile.profile_img.url }}"
+                alt="profile"
+                class="profile-pic"
+              />
+            </a>
+            {% else %}
+            <a href="{% url 'signup' %}"
+              ><img
+                src="{% static 'images/user-default.png' %}"
+                alt="profile"
+                class="profile-pic"
+            /></a>
+            {% endif %}
+          </div>
+        </header>
+        {% if messages %}
+        <div class="messages-container">
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            <span>{{ message }}</span>
+            <button
+              type="button"
+              class="close-btn"
+              onclick="this.parentElement.remove()"
+            >
+              &times;
+            </button>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %} {% block content %} {% endblock %}
+      </main>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

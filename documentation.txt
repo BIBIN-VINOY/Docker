@@ -1,0 +1,162 @@
+1) should connect template to settings
+
+2) connecting app :- name.apps.classname
+
+3)When you call render(), you should not prefix the path with templates/.   Django already knows to look inside the templates folder because of your DIRS setting.
+
+4)In Django, you don’t need to manually create a User table because it’s already provided by Django’s built‑in authentication system.This table includes fields like:
+   i)id (primary key)
+   ii)username
+   iii)email
+   iv)password
+
+5)step1: start with models:
+   i)Define models →
+   ii)Register in admin →
+   iii)Makemigrations appname→
+   iV)Migrate →
+   v)Createsuperuser
+   That way, when you log into /admin/, you’ll immediately see your models ready to use.
+   vi)If any changes are done  Run makemigrations + migrate
+   vii)If images needed then setup a staic folder.eg: profile images
+       -static files contains css,js,images
+
+6)Important imports:-
+      IN MODELS
+      i)from users.model import profile :- users=appname, model=filename, profile=modelname
+      ii)import uuid,user
+
+      IN VIEWS
+      i)from .models import models,forms :- if the import is from same folder 
+      ii)import User,render,redirect
+
+7)If you introduce a Profile model where each User has exactly one Profile (via OneToOneField), then the rest of your tables (Expense, Income, Category) should connect to Profile(via foriegn key), not directly to User. That way, all financial data is tied to the extended profile of the user.
+
+8)Important queries:-
+      i)profile = request.user.profile
+        ->this line fetches the Profile object that belongs to the logged-in user.
+        ->If Bibin is logged in, request.user.profile gives you Bibin’s profile record.
+
+      ii)expenses = profile.expense_set.all()
+      iii)incomes = profile.income_set.all()
+
+9)step 2: static
+     i)There should be 2 folders STATIC[css,js,images(used for webdesign)] and MEDIA [used to upload user files]
+
+     ii)STATICFILES_DIRS → tells Django where to look for static files during development (CSS, JS, images).
+
+     iii)STATIC_ROOT → is used only when you deploy your project.
+      ->Django will copy all static files from apps + STATICFILES_DIRS into this single staticfiles/ folder.
+
+
+      iV)MEDIA_URL->It’s the web path (URL prefix) that maps to MEDIA_ROOT.
+         MEDIA_ROOT->It’s the physical folder on your disk where Django saves user-uploaded files.
+
+      V)Install pillow
+          python -m pip install Pillow 
+
+10) User field already consist of username,email therefore while creating a profile we dont need these fields since it creates confussion.
+  -> Then in templates we can use :
+        i){{ profile.user.username }} user.name is invalid
+        ii){{ profile.user.email }}  
+
+11)To create,update,delete,edit we need to create 4 differnt views(eg:to create an expense then to modify)
+     
+12)order of creation 1)template 2)views 3)url 4)link url in frontend
+
+13)for extra js css files use this approach:
+
+    i)Inside the base.html add:
+        {% block extra_css %}
+        {% endblock %} 
+    ii)Then the template which needs the css styling add this(b/w static and page_title)
+        {% block extra_css %}
+         <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+        {% endblock %}
+
+        ->This should be below the main css file ie; 'css/main.css'
+        ->Same is applicable for javascript
+
+14) i)Use request.user.is_authenticated inside views (Python code).
+    ii)Use user.is_authenticated inside templates
+
+15)step 3:
+        create to view profile so users can view profile that is created in DB
+
+   step 4:
+        create signal to:
+             i) -> whenever user is created profile is created
+             ii) whenever profile is deleted user is also deleted
+             NOTE:- Make sure to conncet signal in app.py
+   step 5: 
+         LOGIN,LOGOUT,SIGNIN:
+             i)create form for signin in forms.py.It should contain the details the user need to give inorder to signin
+
+             ii)First create signin feature:
+                    i)if authenticated redirect to dashboard
+                    ii)get the form  form = CustomUserCreationForm()
+                   iii)check if method is post
+                   iv) if post:
+                       i)put the form in request.post method
+                         form = CustomUserCreationForm(request.POST)
+                       ii)check if form is valid
+                       iii)if valid save the from
+                       iv)redirect the user
+
+             iii)Secondly create login feature:
+                     i)if authenticated redirect to dashboard
+                     ii)check if method is post
+                     iii)if post:
+                         i)Get the username and password
+                         ii)authenticate if the user and password is same as in signin using authenticate function
+                         iii)if it is correct login user
+
+             iv)thirdly logout the user simply using logout   functionality
+
+16)Since Profile does not contain username and email to edit them create a seperate form and add it to view:
+     
+17)If a url does not exixt in template it will thrown an error to avoid that create a dummy url in url.py:
+
+18)       FORMS 
+
+   1)ADDING:
+       i)get the form  form = CustomUserCreationForm()
+       ii)check if method is post
+        iii) if post:
+            i)put the form in request.post method
+                form = CustomUserCreationForm(request.POST)
+            ii)if form is valid:
+                i)save it but dont commit it to database
+                 ie; category = form.save(commit=False)
+
+                ii) manually assign it to the currently logged-in user’s   profile.This ensures that every new category is linked to the correct user.
+                ie; category.owner = request.user.profile
+                
+                iii)save category
+
+    2)Editing:
+        1)while editting and deleting always set a primary key to understand which object is getting edited
+        2)Dont want to create a seperate form use the addform
+
+        i)get the current profile and get the categorie details
+         ie; category=profile.category_set.get(id=pk)
+
+        ii)get the form but instantiate form with the existing category so template knows it's an edit  ie;form = addCategoryForm(instance=category)
+        iii) continue the ii and iii(i(also add the instance) ,ii) if form is valid we can directly save 
+    
+    3)Deleting:
+      
+      1)While deleting create a common template 
+      2)also have an {{object}} in context so differnt objects can use the same delete template just by adding name
+
+      i)check if method=POST
+      ii)delete it
+
+    4)On editing and deleting also pass down id while rendering template.
+      ie;{% url 'edit-income' income.id %}
+      Here the income variable contains=  [income=profile.income_set.get(id=pk)
+
+
+19)Django messages should have request ie;  messages.success(request,"New account created successfully!")
+     i) deletion should have messages.warning()
+            

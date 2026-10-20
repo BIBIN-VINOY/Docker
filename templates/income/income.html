@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+ <link rel="stylesheet" href="{% static 'css/income.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="income-container">
+
+    <div class="income-header">
+        <h2>Income Management</h2>
+
+        <a href="{% url 'add-income' %}" class="btn btn-add">
+            + Add Income
+        </a>
+    </div>
+
+    <div class="income-card">
+
+        <table class="income-table">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Source</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- Dummy Data -->
+            {% if incomes %}
+            {% for income in incomes %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{income.source}}</td>
+                    <td>{{income.amount}}</td>
+                    <td>{{income.date}}</td>
+                    <td>
+                        <a href="{% url 'edit-income' income.id %}" class="btn btn-edit">Edit</a>
+                        <a href="{% url 'delete-income' income.id %}" class="btn btn-delete">Delete</a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No incomes yet.</td>
+                </tr>
+            {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

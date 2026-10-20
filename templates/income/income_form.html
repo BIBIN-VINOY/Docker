@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+ <link rel="stylesheet" href="{% static 'css/income.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <div class="form-card">
+
+        <h2>Add Income</h2>
+
+        <!-- Replace with Django Form -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Income Source</label>
+                {{form.source}}
+            </div>
+
+            <div class="form-group">
+                <label>Amount</label>
+                {{form.amount}}
+            
+            </div>
+
+            <div class="form-group">
+                <label>Date</label>
+                {{form.date}}
+                
+            </div>
+
+            <div class="button-group">
+
+                <button type="submit" class="btn btn-save">
+                    Save Income
+                </button>
+
+                <a href="{% url 'income' %}" class="btn btn-cancel">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

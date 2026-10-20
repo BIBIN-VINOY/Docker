@@ -1,0 +1,11 @@
+.env
+env/
+media/
+.vscode/
+db.sqlite3
+documentation.txt
+dockerfile
+
+__pycache__/
+*.pyc
+

@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/expense.css' %}" />
+{% endblock %} {% block content %}
+
+<div class="form-container">
+  <div class="form-card">
+    <h2>{% if form.instance and form.instance.pk %}Edit Expense{% else %}Add Expense{% endif %}</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Replace with Django form later -->
+
+      <div class="form-group">
+        <label for="id_amount">Amount</label>
+        {{ form.amount }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_category">Category</label>
+        <select id="id_category" name="category" class="form-control">
+          {% for category in categories %}
+          <option value="{{ category.id }}" {% if form.instance and form.instance.category and form.instance.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="id_date">Date</label>
+        {{ form.date }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_description">Description</label>
+        {{ form.description }}
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn btn-save">Save Expense</button>
+
+        <a href="{% url 'expense' %}" class="btn btn-cancel"> Cancel </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

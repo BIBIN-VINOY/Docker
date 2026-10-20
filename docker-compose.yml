@@ -1,0 +1,27 @@
+name: docker-project
+
+services:
+
+#app,build,context,dockerfile is not required if you have already built the image
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: expense_tracker
+    container_name: docker-container
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+      #Container for database
+  db:
+    image: postgres:15
+    container_name: postgres-container
+    restart: always 
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: expense_tracker_db
+    ports:
+      - "5432:5432"

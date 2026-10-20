@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block page_title %}
+My Profile
+{% endblock %} 
+
+
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-header">
+
+            {% if profile.profile_img %}
+            <img
+                src="{{ profile.profile_img.url }}"
+                alt="Profile Picture"
+                class="profile-image"
+            >
+            {% else %}
+            <img
+                src="{% static 'images/user-default.png' %}"
+                alt="Default Profile Picture"
+                class="profile-image"
+            >
+            {% endif %}
+
+            <h2>{{ profile.user.username }}</h2>
+
+            <p>@{{ profile.user.username }}</p>
+
+        </div>
+
+        <div class="profile-info">
+
+            <div class="info-row">
+                <strong>Email:</strong>
+                {{ profile.user.email }}
+            </div>
+
+            <div class="info-row">
+                <strong>Location:</strong>
+                {{ profile.location }}
+            </div>
+
+        </div>
+
+        <div class="profile-bio">
+
+            <h3>About Me</h3>
+
+            <p>
+                {{ profile.bio }}
+            </p>
+
+        </div>
+
+        <div class="social-links">
+
+            {% if profile.social_linkedin %}
+            <a href="{{ profile.social_linkedin }}" target="_blank">
+                <img src="{% static 'images/linkedin.png' %}" alt="LinkedIn">
+            </a>
+            {% endif %}
+
+            {% if profile.social_instagram %}
+            <a href="{{ profile.social_instagram }}" target="_blank">
+                <img src="{% static 'images/instagram.png' %}" alt="Instagram">
+            </a>
+            {% endif %}
+
+            {% if profile.social_twitter %}
+            <a href="{{ profile.social_twitter }}" target="_blank">
+                <img src="{% static 'images/twitter.png' %}" alt="Twitter">
+            </a>
+            {% endif %}
+
+        </div>
+
+        <div class="profile-actions">
+
+            <a href="{% url 'edit-profile' %}" class="edit-btn">
+                Edit Profile
+            </a> 
+            <a href="{% url 'delete-profile' %}" class="delete-btn">
+                Delete Profile
+            </a> 
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
