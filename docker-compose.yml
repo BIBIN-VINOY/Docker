@@ -7,8 +7,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: expense_tracker
-    container_name: app-container
+    image: expenseTracker-image
+    container_name: expenseTracker-container
     ports:
       - "8000:8000"
     environment:
