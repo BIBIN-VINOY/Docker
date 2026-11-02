@@ -17,6 +17,7 @@ __pycache__/
 # Environment variables/secrets
 # ==========================
 .env
+.env.local
 .env.*
 !.env.example
 
@@ -76,5 +77,7 @@ dist/
 # ==========================
 # Local Docker Compose overrides
 # ==========================
-docker-compose.override.yaml
+docker-compose.yaml
+.docker
+
 compose.override.yaml

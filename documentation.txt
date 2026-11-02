@@ -159,4 +159,26 @@
 
 19)Django messages should have request ie;  messages.success(request,"New account created successfully!")
      i) deletion should have messages.warning()
+
+
+20)With DEBUG=False, Django displays a generic error page instead of exposing detailed technical information.
+
+This is important for production security.
+
+An error page with DEBUG=True can expose sensitive information, including:
+
+Internal file paths.
+Database query details.
+Environment and configuration information.
+Parts of your application source code.
+
+
+
+1)How to commit changes to github
+
+21) Local PostgreSQL
+
+Configure PostgreSQL values in the root .env file. PostgreSQL runs locally
+outside Docker. When running the Django app with Docker Compose on Windows,
+the app connects to the host PostgreSQL server through host.docker.internal.
             

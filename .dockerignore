@@ -1,10 +1,12 @@
 .env
+.env.local
 env/
 media/
 .vscode/
 db.sqlite3
 documentation.txt
-dockerfile
+Dockerfile
+docker-compose.yml
 
 __pycache__/
 *.pyc
