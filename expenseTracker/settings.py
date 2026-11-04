@@ -47,7 +47,7 @@ if not SECRET_KEY:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['expense-tracker-6mp0.onrender.com']#without this, the app will not be accessible from the internet. It will only be accessible from localhost. This is a security measure to prevent unauthorized access to the app.
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'expense-tracker-6mp0.onrender.com']#without this, the app will not be accessible from the internet. It will only be accessible from localhost. This is a security measure to prevent unauthorized access to the app.
 
 CSRF_TRUSTED_ORIGINS = ['https://expense-tracker-6mp0.onrender.com']# with https
 
