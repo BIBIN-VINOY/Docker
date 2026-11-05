@@ -18,7 +18,14 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / '.env')
+#load_dotenv(BASE_DIR / '.env')
+
+ENVIRONMENT = os.environ.get('DJANGO_ENV', 'local')
+
+if ENVIRONMENT == 'production':
+    load_dotenv(BASE_DIR / '.env')
+else:
+    load_dotenv(BASE_DIR / '.env.local')
 
 
 LOGGING = {
